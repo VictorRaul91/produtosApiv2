@@ -57,15 +57,15 @@ public class CategoriaController {
 			var categoriaRepository = new CategoriaRepository();
 			var validacao = categoriaRepository.ConsultarCategoriaComID(categoriaDTO.getNome());
 			
-			if (validacao == 1) {
+			if (validacao == 0) {
 				categoriaRepository.CadastrarCategoria(categoriaDTO);
 				return ResponseEntity.status(HttpStatus.CREATED).body("CATEGORIA CADASTRADA");
 			} else   {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Já existe uma caegoria com esse nome.");
+				return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Já existe uma caegoria com esse nome.");
 			}
 
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("FALHA AO CADASTRAR.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("FALHA AO CADASTRAR." + e.getMessage());
 		}
 
 	}

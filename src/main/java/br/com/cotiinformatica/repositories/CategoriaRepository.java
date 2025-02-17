@@ -33,10 +33,12 @@ public class CategoriaRepository {
 	public Integer ConsultarCategoriaComID(String nome) throws Exception {
 
 		var connection = ConnectionFactory.getConnetion();
-		var query = "SELECT COUNT(*) as qtde FROM CATEGORIA WHERE UPPER(NOME) LIKE UPPER(?)";
+		var query = "SELECT nome as qtde FROM CATEGORIA WHERE UPPER(NOME) LIKE UPPER(?)";
 		var statement = connection.prepareStatement(query);
-		statement.setObject(1, nome);
+		statement.setString(1, nome);
 		var resultado = statement.executeQuery();
+
+		System.out.println(resultado);
 
 		if (resultado.next()) {
 				return 1;
